@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculator API Demo</title>
+</head>
+
+<body>
+  <h1>Calculator</h1>
+
+  <label>Enter number A:</label>
+  <input type="number" id="a">
+
+  <label>Enter number B:</label>
+  <input type="number" id="b">
+
+  <br><br>
+
+  <button onclick="calculate('add')">Add</button>
+  <button onclick="calculate('subtract')">Subtract</button>
+  <button onclick="calculate('multiply')">Multiply</button>
+  <button onclick="calculate('divide')">Divide</button>
+
+  <h2 id="result"></h2>
+
+  <script>
+    async function calculate(operation) {
+      const a = document.getElementById('a').value;
+      const b = document.getElementById('b').value;
+
+      if (!a || !b) {
+        document.getElementById('result').textContent = "Please enter both numbers.";
+        return;
+      }
+
+      const response = await fetch(`/${operation}?a=${a}&b=${b}`);
+      const text = await response.text();
+
+      document.getElementById('result').textContent = text;
+    }
+  </script>
+
+</body>
+</html>
